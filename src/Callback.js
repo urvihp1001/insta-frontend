@@ -9,11 +9,11 @@ const Callback=()=>
     useEffect(()=>
     {
         const code= new URLSearchParams(window.location.search).get("code");
-        axios.post("http://localhost:5000/auth/instagram",{code}).then((res)=>
+        axios.post("${process.env.REACT_APP_BACKEND_URL}/auth/instagram",{code}).then((res)=>
         {
 const token=res.data.access_token;
-axios.get("http://localhost:5000/profile?access_token=${token}").then((p)=>setProfile(p.data));
-axios.get("http://localhost:5000/media?access_token=${token}").then((m)=>setMedia(m.data.data));
+axios.get("${process.env.REACT_APP_BACKEND_URL}/profile?access_token=${token}").then((p)=>setProfile(p.data));
+axios.get("${process.env.REACT_APP_BACKEND_URL}/media?access_token=${token}").then((m)=>setMedia(m.data.data));
         });
     },[]);
 
@@ -47,7 +47,7 @@ axios.get("http://localhost:5000/media?access_token=${token}").then((m)=>setMedi
 const CommentBox=({mediaid})=>{
 const [comment, setComment]=useState("");
 const postComment=()=>{
-    axios.post("http://localhost:5000/comment",{mediaid,comment});
+    axios.post("${process.env.REACT_APP_BACKEND_URL}/comment",{mediaid,comment});
     setComment("");
 };
 return(
